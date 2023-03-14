@@ -79,3 +79,48 @@ class _AppBarCircleIconState extends ConsumerState<AppBarCircleIcon> {
     );
   }
 }
+
+class AppBarDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  // TODO: implement maxExtent
+  double get maxExtent => 264;
+
+  @override
+  // TODO: implement minExtent
+  double get minExtent => 84;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    // TODO: implement shouldRebuild
+    return true;
+  }
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    // TODO: implement build
+    final progress = shrinkOffset / maxExtent;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 75.w,
+          child: CustomText(
+            text: "Good Morning",
+            fontColor: kButtonColor,
+            fontSize: 35.sp,
+            maxLine: 2,
+            isRaleway: true,
+          ),
+        ),
+        SizedBox(
+          height: 5.h,
+        ),
+        DateStatusWidget(),
+        SizedBox(
+          height: 5.h,
+        ),
+      ],
+    );
+  }
+}

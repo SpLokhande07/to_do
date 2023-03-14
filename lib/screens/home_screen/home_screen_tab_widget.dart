@@ -31,10 +31,12 @@ class _HomeScreenTabWidgetState extends ConsumerState<HomeScreenTabWidget>
     var homPods = ref.watch(homePod.notifier);
     var homPodModel = ref.watch(homePod);
     return SizedBox(
-      height: 75.h,
+      height: 100.h,
       width: 100.w,
-      child: ListView(
-        shrinkWrap: true,
+      child: Column(
+        // shrinkWrap: true,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TabBar(
               controller: tabController!,
@@ -90,12 +92,12 @@ class _HomeScreenTabWidgetState extends ConsumerState<HomeScreenTabWidget>
                   ),
                 ),
               ]),
-          SizedBox(
-            height: 75.h,
-            width: 100.w,
+          Expanded(
+            // height: 100.h,
+            // width: 100.w,
             child: TabBarView(
                 controller: tabController!,
-                children: [TasksWidget(), BoardsWidget()]),
+                children: [TasksTab(), BoardsWidget()]),
           )
         ],
       ),
@@ -103,14 +105,14 @@ class _HomeScreenTabWidgetState extends ConsumerState<HomeScreenTabWidget>
   }
 }
 
-class TasksWidget extends StatefulHookConsumerWidget {
-  const TasksWidget({Key? key}) : super(key: key);
+class TasksTab extends StatefulHookConsumerWidget {
+  const TasksTab({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<TasksWidget> createState() => _TasksWidgetState();
+  ConsumerState<TasksTab> createState() => _TasksTabState();
 }
 
-class _TasksWidgetState extends ConsumerState<TasksWidget> {
+class _TasksTabState extends ConsumerState<TasksTab> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -119,19 +121,28 @@ class _TasksWidgetState extends ConsumerState<TasksWidget> {
         SizedBox(
           height: 5.h,
         ),
-        ListView.builder(
-            itemCount: 5,
-            physics: NeverScrollableScrollPhysics(),
+        Expanded(
+          child: ListView.separated(
+            itemCount: 10,
+            physics: ClampingScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (_, i) {
               return TaskWidget(
                 title: "Coding",
-                photoUrl: [FirebaseAuth.instance.currentUser!.photoURL!],
+                index: i,
+                photoUrl: [
+                  FirebaseAuth.instance.currentUser!.photoURL!,
+                  FirebaseAuth.instance.currentUser!.photoURL!,
+                  FirebaseAuth.instance.currentUser!.photoURL!,
+                ],
                 status: true,
                 tag: "Myself",
                 time: "1h 45m",
               );
-            })
+            },
+            separatorBuilder: (_, i) => SizedBox(height: 1.h),
+          ),
+        )
       ],
     );
   }

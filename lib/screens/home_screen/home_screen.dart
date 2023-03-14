@@ -15,68 +15,102 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        elevation: 0,
-        bottomOpacity: 0,
-        backgroundColor: kBackgroundColor,
-        leadingWidth: 20.w,
-        leading: const Padding(
-          padding: EdgeInsets.only(top: 4.0, left: 8, bottom: 4),
-          child: AppBarDrawer(),
-        ),
-        actions: [
-          AppBarCircleIcon(
-            data: Icons.notifications,
-            bgColor: kPrimaryColor,
-            color: kFont2Color,
-          ),
-          SizedBox(
-            width: 1.w,
-          ),
-          AppBarCircleIcon(
-            data: Icons.add,
-            bgColor: kPrimaryColor,
-            color: kFont2Color,
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            color: kBackgroundColor,
-            height: 100.h,
-            width: 100.w,
-            child: ListView(
-              shrinkWrap: true,
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  height: 5.h,
-                ),
-                SizedBox(
-                  width: 75.w,
-                  child: CustomText(
-                    text: "Good Morning",
-                    fontColor: kButtonColor,
-                    fontSize: 35.sp,
-                    maxLine: 2,
-                    isRaleway: true,
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   bottomOpacity: 0,
+      //   backgroundColor: kBackgroundColor,
+      //   leadingWidth: 20.w,
+      //   leading: const Padding(
+      //     padding: EdgeInsets.only(top: 4.0, left: 8, bottom: 4),
+      //     child: AppBarDrawer(),
+      //   ),
+      //   actions: [
+      //     AppBarCircleIcon(
+      //       data: Icons.notifications,
+      //       bgColor: kPrimaryColor,
+      //       color: kFont2Color,
+      //     ),
+      //     SizedBox(
+      //       width: 1.w,
+      //     ),
+      //     AppBarCircleIcon(
+      //       data: Icons.add,
+      //       bgColor: kPrimaryColor,
+      //       color: kFont2Color,
+      //     ),
+      //   ],
+      // ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: kBackgroundColor,
+            leadingWidth: 20.w,
+            leading: const Padding(
+              padding: EdgeInsets.only(top: 4.0, left: 8, bottom: 4),
+              child: AppBarDrawer(),
+            ),
+            actions: [
+              AppBarCircleIcon(
+                data: Icons.notifications,
+                bgColor: kPrimaryColor,
+                color: kFont2Color,
+              ),
+              SizedBox(
+                width: 1.w,
+              ),
+              AppBarCircleIcon(
+                data: Icons.add,
+                bgColor: kPrimaryColor,
+                color: kFont2Color,
+              ),
+            ],
+            flexibleSpace: FlexibleSpaceBar(
+              title: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 75.w,
+                    child: CustomText(
+                      text: "Good Morning",
+                      fontColor: kButtonColor,
+                      fontSize: 35.sp,
+                      maxLine: 2,
+                      isRaleway: true,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                DateStatusWidget(),
-                SizedBox(
-                  height: 5.h,
-                ),
-                // const Expanded(child: HomeScreenTabWidget())
-                SizedBox(
-                    height: 75.h, width: 100.w, child: HomeScreenTabWidget())
-              ],
-            )),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  DateStatusWidget(),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverPersistentHeader(pinned: true, delegate: AppBarDelegate())
+        ],
+        // body: Container(
+        //     padding: const EdgeInsets.symmetric(horizontal: 24),
+        //     color: kBackgroundColor,
+        //     height: 100.h,
+        //     width: 100.w,
+        //     child: ListView(
+        //       shrinkWrap: true,
+        //       // mainAxisAlignment: MainAxisAlignment.start,
+        //       // crossAxisAlignment: CrossAxisAlignment.start,
+        //       // mainAxisSize: MainAxisSize.min,
+        //       children: [
+        //         SizedBox(
+        //           height: 5.h,
+        //         ),
+        //
+        //         // const Expanded(child: HomeScreenTabWidget())
+        //         SizedBox(
+        //             height: 100.h, width: 100.w, child: HomeScreenTabWidget())
+        //       ],
+        //     )),
       ),
     );
   }

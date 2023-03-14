@@ -57,7 +57,7 @@ class _DateStatusWidgetState extends State<DateStatusWidget> {
 
 class TaskWidget extends StatelessWidget {
   String tag;
-
+  int index;
   String title;
   bool status;
   List<String> photoUrl;
@@ -65,6 +65,7 @@ class TaskWidget extends StatelessWidget {
   TaskWidget(
       {Key? key,
       required this.title,
+      required this.index,
       required this.status,
       required this.photoUrl,
       required this.tag,
@@ -79,7 +80,7 @@ class TaskWidget extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
-        color: taskColors[0],
+        color: taskColors[(index % 3).ceil()],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -89,30 +90,67 @@ class TaskWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 3.h,
+                height: 3.5.h,
                 width: 45.w,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: photoUrl.length > 5 ? 5 : photoUrl.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (_, i) {
-                      if (i < 5) {
-                        return Align(
-                          widthFactor: 0.35,
-                          alignment: Alignment.center,
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(photoUrl[i]),
-                          ),
-                        );
-                      } else {
-                        const CircleAvatar(
-                          child: Center(
-                            child: Icon(Icons.add),
-                          ),
-                        );
-                      }
-                    }),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 5.h,
+                      width: 5.h,
+                      decoration: BoxDecoration(
+                          color: kFont2Color.withOpacity(0.7),
+                          shape: BoxShape.circle),
+                      child: Center(
+                        child: Icon(Icons.add),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 1.h,
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: photoUrl.length > 5 ? 5 : photoUrl.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, i) {
+                          return Align(
+                            widthFactor: 0.5,
+                            alignment: Alignment.center,
+                            child: CircleAvatar(
+                              maxRadius: 2.h,
+                              minRadius: 2.h,
+                              backgroundImage: NetworkImage(photoUrl[i]),
+                            ),
+                          );
+                        }),
+                  ],
+                ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomText(
+                    text: time,
+                    fontColor: kPrimaryColor,
+                    fontSize: 12.sp,
+                  ),
+                  SizedBox(
+                    width: 2.w,
+                  ),
+                  Container(
+                    height: 5.h,
+                    width: 5.h,
+                    decoration: BoxDecoration(
+                        color: kPrimaryColor.withOpacity(0.1),
+                        shape: BoxShape.circle),
+                    child: Center(
+                      child: Icon(Icons.done, color: kPrimaryColor),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ],
